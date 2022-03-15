@@ -1,5 +1,26 @@
 #include "../includes/pipex.h"
 
+void	error_find_cmd(t_pipex *pipex, char *err)
+{
+//	free(pipex->cmd_args); /// это двумерный массив
+	char **tmp;
+	int i;
+
+	tmp = pipex->cmd_args;
+	i = 0;
+
+	while (tmp[i])
+	{
+		free(tmp[i]);
+		i++;
+	}
+	free(pipex->cmd_args);
+	close(pipex->end[1]);
+	close(pipex->end[0]);
+	perror(err);
+	exit(1);
+}
+
 char	*find_cmd(char **cmd_paths, char *cmd)
 {
 	char	*tmp;
@@ -28,19 +49,12 @@ void	first_child(t_pipex pipex, char **argv, char **env)
 
 	pipex.cmd_args = ft_split(argv[2], ' ');
 	if (!pipex.cmd_args)
-	{
-		perror("Failed malloc 1 1");
-		exit(1);
-	}
+		error2("Error : failed malloc (cmd_argc)\n");
 	pipex.cmd = find_cmd(pipex.cmd_paths,pipex.cmd_args[0]);
 	if (!pipex.cmd)
 	{
-		//end work;
-		free(pipex.cmd_args); /// это двумерный массив
-		close(pipex.end[1]);
-		close(pipex.end[0]);
-		perror("Failed malloc 1 2");
-		exit(1);
+		error_find_cmd(&pipex);
+
 	}
 	execve(pipex.cmd, pipex.cmd_args, env);
 }

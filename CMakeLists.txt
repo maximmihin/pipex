@@ -11,4 +11,4 @@ add_executable(pipex
         libft_func/ft_strlen.c
         libft_func/ft_strncmp.c
         libft_func/ft_substr.c
-        src/pipex.c src/childs.c libft_func/ft_strjoin.c)
+        src/pipex.c src/childs.c libft_func/ft_strjoin.c src/errors.c)

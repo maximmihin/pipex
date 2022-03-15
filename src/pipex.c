@@ -19,33 +19,18 @@ int	main(int argc, char **argv, char **env)
 	t_pipex pipex;
 
 	if (argc != 5)
-	{
-		write(2, "Error 1\n", 8);
-		return (1);
-	}
+		return (error1("Error : less then 4 arg\n"));
 	pipex.fd_infile = open(argv[1], O_RDONLY);
 	if (pipex.fd_infile < 0)
-	{
-		write(2, "Error 2\n", 8);
-		return (1);
-	}
+		return (error1("Error : failed to open infile\n"));
 	pipex.fd_outfile = open(argv[4], O_TRUNC | O_CREAT | O_RDWR, 0000644);
 	if (pipex.fd_outfile < 0)
-	{
-		write(2, "Error 3\n", 8);
-		return (1);
-	}
+		return (error1("Error : failed to open outfile\n"));
 	pipex.cmd_paths = find_cmd_paths(env);
 	if (!pipex.cmd_paths)
-	{
-		write(2, "Error 4\n", 8);
-		return (1);
-	}
+		return (error1("Error : failed malloc (cmd_paths)\n"));
 	if (pipe(pipex.end))
-	{
-		write(2, "Error 5\n", 8);
-		return (1);
-	}
+		return (error1("Error : failed to create pipe\n"));
 
 	pipex.pid_id_first = fork();
 	if (pipex.pid_id_first == 0)

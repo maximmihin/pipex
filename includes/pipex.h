@@ -30,5 +30,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 void	first_child(t_pipex pipex, char **argv, char **env);
 void	second_child(t_pipex pipex, char *argv, char **env);
 
+int		error1(char *err);
+void 	error2(char *err);
+
 
 #endif //PIPEX_PIPEX_H

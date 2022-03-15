@@ -8,7 +8,7 @@ FLAGS = -Wall -Wextra -Werror
 
 SRC = libft_func/ft_split.c libft_func/ft_strjoin.c libft_func/ft_strlen.c \
 		libft_func/ft_strncmp.c libft_func/ft_substr.c \
-		src/childs.c src/pipex.c
+		src/childs.c src/errors.c src/pipex.c
 
 OBJ = $(SRC:%.c= %.o)
 
